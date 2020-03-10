@@ -1,0 +1,8 @@
+
+include(default)
+
+[settings]
+build_type=Release
+
+[options]
+*:shared=True
