@@ -6,9 +6,9 @@
 
 void library(int tabs) {
     #ifdef library_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> library: (shared!)" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> library: " << library_MESSAGE << " (shared!)" << std::endl;
     #else
-        std::cout << std::string(tabs, '\t') << "> library" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> library: " << library_MESSAGE << std::endl;
     #endif
 
     // Requires and build_requires (host)

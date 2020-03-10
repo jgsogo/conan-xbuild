@@ -6,9 +6,9 @@
 
 void testlib(int tabs) {
     #ifdef testlib_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> testlib: shared!" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> testlib: " << testlib_MESSAGE << " shared!" << std::endl;
     #else
-        std::cout << std::string(tabs, '\t') << "> testlib" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> testlib: " << testlib_MESSAGE << std::endl;
     #endif
 
     // Requires and build_requires (host)

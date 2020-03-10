@@ -17,6 +17,7 @@ class testlib(ConanFile):
     
     def build(self):
         cmake = CMake(self)
+        cmake.definitions["MESSAGE:STRING"] = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
         cmake.configure()
         cmake.build()
 

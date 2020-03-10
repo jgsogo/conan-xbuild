@@ -9,7 +9,7 @@ project(zlib LANGUAGES CXX)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/zlib.h "#pragma once\nconst char* const zlib_MESSAGE=\"${MESSAGE}\";")
 add_library(zlib zlib/lib.cpp zlib/lib.h)
 target_include_directories(zlib
     PUBLIC

@@ -6,9 +6,9 @@
 
 void cmakelib(int tabs) {
     #ifdef cmakelib_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> cmakelib: (shared!)" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> cmakelib: " << cmakelib_MESSAGE << " (shared!)" << std::endl;
     #else
-        std::cout << std::string(tabs, '\t') << "> cmakelib" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> cmakelib: " << cmakelib_MESSAGE << std::endl;
     #endif
 
 

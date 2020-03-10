@@ -11,6 +11,7 @@ conan_basic_setup(TARGETS)
 
 find_package(library REQUIRED)
 
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/app.h "#pragma once\nconst char* const app_MESSAGE=\"${MESSAGE}\";")
 
 add_library(app app/lib.cpp app/lib.h)
 target_include_directories(app

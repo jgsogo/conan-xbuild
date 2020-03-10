@@ -6,9 +6,9 @@
 
 void testtool(int tabs) {
     #ifdef testtool_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> testtool: (shared!)" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> testtool: " << testtool_MESSAGE << " (shared!)" << std::endl;
     #else
-        std::cout << std::string(tabs, '\t') << "> testtool" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> testtool: " << testtool_MESSAGE << std::endl;
     #endif
 
     // Requires and build_requires (host)

@@ -27,6 +27,7 @@ class app(ConanFile):
 
         # Run actual compilation
         cmake = CMake(self)
+        cmake.definitions["MESSAGE:STRING"] = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
         cmake.configure()
         cmake.build()
 

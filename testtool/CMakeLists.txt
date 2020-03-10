@@ -7,6 +7,8 @@ conan_basic_setup()
 
 find_package(testlib REQUIRED)
 
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/testtool.h "#pragma once\nconst char* const testtool_MESSAGE=\"${MESSAGE}\";")
+
 add_library(testtool testtool/lib.cpp testtool/lib.h)
 target_include_directories(testtool
     PUBLIC

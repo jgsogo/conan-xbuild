@@ -10,6 +10,7 @@ find_package(zlib REQUIRED)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/library.h "#pragma once\nconst char* const library_MESSAGE=\"${MESSAGE}\";")
 
 add_library(library library/lib.cpp library/lib.h)
 target_include_directories(library

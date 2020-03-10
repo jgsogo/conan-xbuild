@@ -11,6 +11,7 @@ conan_basic_setup()
 
 find_package(cmakelib REQUIRED)
 
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/cmake.h "#pragma once\nconst char* const cmake_MESSAGE=\"${MESSAGE}\";")
 
 add_library(cmake cmake/lib.cpp cmake/lib.h)
 target_include_directories(cmake

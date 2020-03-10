@@ -6,9 +6,9 @@
 
 void app(int tabs) {
     #ifdef app_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> app: (shared!)" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> app: " << app_MESSAGE << " (shared!)" << std::endl;
     #else
-        std::cout << std::string(tabs, '\t') << "> app" << std::endl;
+        std::cout << std::string(tabs, '\t') << "> app: " << app_MESSAGE << std::endl;
     #endif
 
     // Requires and build_requires (host)
