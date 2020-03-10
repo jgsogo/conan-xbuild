@@ -2,8 +2,8 @@
 import os
 from conans import ConanFile, CMake
 
-class testlib(ConanFile):
-    name = "testlib"
+class testtool(ConanFile):
+    name = "testtool"
     version = "0.1"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
@@ -13,8 +13,8 @@ class testlib(ConanFile):
     generators = "cmake", "cmake_find_package"
     
     def requirements(self):
-        self.requires("zlib/0.1@user/testing")
-    
+        self.requires("testlib/0.1@user/testing")
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
@@ -27,6 +27,8 @@ class testlib(ConanFile):
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
+        self.copy("testtool_exe", src="bin", dst="bin", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["testlib"]
+        self.cpp_info.libs = ["testtool"]
+        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))

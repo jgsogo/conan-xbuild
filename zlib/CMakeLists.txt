@@ -7,7 +7,7 @@ project(zlib LANGUAGES CXX)
 
 
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+conan_basic_setup()
 
 
 add_library(zlib zlib/lib.cpp zlib/lib.h)
