@@ -5,11 +5,7 @@
 #include "zlib/lib.h"
 
 void cmakelib(int tabs) {
-    #ifdef cmakelib_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> cmakelib: " << cmakelib_MESSAGE << " (shared!)" << std::endl;
-    #else
-        std::cout << std::string(tabs, '\t') << "> cmakelib: " << cmakelib_MESSAGE << std::endl;
-    #endif
+    std::cout << std::string(tabs, '\t') << "> cmakelib: " << cmakelib_MESSAGE << std::endl;
 
 
     // Requires and build_requires (host)

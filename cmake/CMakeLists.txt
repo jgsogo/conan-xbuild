@@ -5,7 +5,7 @@ set(CMAKE_CXX_ABI_COMPILED 1)
 cmake_minimum_required(VERSION 3.10)
 project(cmake LANGUAGES CXX)
 
-
+include(GenerateExportHeader)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -17,6 +17,7 @@ add_library(cmake cmake/lib.cpp cmake/lib.h)
 target_include_directories(cmake
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+generate_export_header(cmake)
 target_link_libraries(cmake PUBLIC cmakelib::cmakelib )
 set_target_properties(cmake PROPERTIES OUTPUT_NAME cmake)
 

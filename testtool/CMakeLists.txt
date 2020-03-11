@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(testtool LANGUAGES CXX)
 
-
+include(GenerateExportHeader)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -13,6 +13,7 @@ add_library(testtool testtool/lib.cpp testtool/lib.h)
 target_include_directories(testtool
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+generate_export_header(testtool)
 target_link_libraries(testtool PUBLIC testlib::testlib )
 set_target_properties(testtool PROPERTIES OUTPUT_NAME testtool)
 

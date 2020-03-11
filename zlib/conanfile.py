@@ -14,7 +14,9 @@ class ZLib(ConanFile):
     
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["MESSAGE:STRING"] = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        options = "|".join(map(str, ["shared={}".format(self.options.shared)]))
+        cmake.definitions["MESSAGE:STRING"] = "|".join([settings, options])
         cmake.configure()
         cmake.build()
 

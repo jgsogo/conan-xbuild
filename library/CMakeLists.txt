@@ -7,6 +7,7 @@ project(library LANGUAGES CXX)
 
 find_package(zlib REQUIRED)
 
+include(GenerateExportHeader)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -16,6 +17,7 @@ add_library(library library/lib.cpp library/lib.h)
 target_include_directories(library
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+generate_export_header(library)
 target_link_libraries(library PUBLIC zlib::zlib )
 
 set_target_properties(library PROPERTIES OUTPUT_NAME library)

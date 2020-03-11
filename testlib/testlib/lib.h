@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include "testlib.h"
+#include "testlib_export.h"
 
-void testlib(int tabs);
+TESTLIB_EXPORT void testlib(int tabs);
 
 static void testlib_header(int tabs) {
     std::cout << std::string(tabs, '\t') << "> testlib_header: " << testlib_MESSAGE << std::endl;

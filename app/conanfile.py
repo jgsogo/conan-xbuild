@@ -23,11 +23,13 @@ class app(ConanFile):
     def build(self):
         # Check build_requires (build) are available
         self.output.write(">>>> cmake | cmake_exe")
-        self.run("cmake_exe", run_environment=True)
+        self.run("cmake_exe.exe", run_environment=True)
 
         # Run actual compilation
         cmake = CMake(self)
-        cmake.definitions["MESSAGE:STRING"] = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        options = "|".join(map(str, ["shared={}".format(self.options.shared)]))
+        cmake.definitions["MESSAGE:STRING"] = "|".join([settings, options])
         cmake.configure()
         cmake.build()
 
@@ -38,7 +40,7 @@ class app(ConanFile):
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("app_exe", src="bin", dst="bin", keep_path=False)
+        self.copy("app_exe.*", src="bin", dst="bin", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["app"]

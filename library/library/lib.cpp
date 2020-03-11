@@ -5,11 +5,7 @@
 #include "zlib/lib.h"
 
 void library(int tabs) {
-    #ifdef library_EXPORTS
-        std::cout << std::string(tabs, '\t') << "> library: " << library_MESSAGE << " (shared!)" << std::endl;
-    #else
-        std::cout << std::string(tabs, '\t') << "> library: " << library_MESSAGE << std::endl;
-    #endif
+    std::cout << std::string(tabs, '\t') << "> library: " << library_MESSAGE << std::endl;
 
     // Requires and build_requires (host)
     zlib_header(tabs+1);

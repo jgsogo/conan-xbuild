@@ -17,7 +17,9 @@ class testtool(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["MESSAGE:STRING"] = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
+        options = "|".join(map(str, ["shared={}".format(self.options.shared)]))
+        cmake.definitions["MESSAGE:STRING"] = "|".join([settings, options])
         cmake.configure()
         cmake.build()
 
@@ -28,7 +30,7 @@ class testtool(ConanFile):
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("testtool_exe", src="bin", dst="bin", keep_path=False)
+        self.copy("testtool_exe.*", src="bin", dst="bin", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["testtool"]
