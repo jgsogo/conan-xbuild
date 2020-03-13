@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "cmakelib.h"
 #include "cmakelib_export.h"
 

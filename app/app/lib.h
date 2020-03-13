@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "app.h"
 #include "app_export.h"
 

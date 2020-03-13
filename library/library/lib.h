@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "library.h"
 #include "library_export.h"
 
