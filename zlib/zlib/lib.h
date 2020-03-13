@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "zlib.h"
 #include "zlib_export.h"
 

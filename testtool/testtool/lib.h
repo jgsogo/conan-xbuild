@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "testtool.h"
 #include "testtool_export.h"
 
