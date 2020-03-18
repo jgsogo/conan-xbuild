@@ -20,8 +20,10 @@ void actual_work(const std::string& project) {
         }
     }
     ifs.close();
-    
-    std::cout << output << std::endl;
+
+    std::ofstream ofs(project + "/lib.cpp");
+    ofs << output;
+    ofs.close();
 }
 
 
