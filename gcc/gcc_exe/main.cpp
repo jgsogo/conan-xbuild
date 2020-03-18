@@ -14,7 +14,7 @@ void actual_work(const std::string& project) {
     std::string line;
     while (std::getline(ifs, line))
     {
-        output += line;
+        output += line + "\n";
         if (line.find("(int tabs) {") != std::string::npos) {
             output += std::string("    std::cout << \"Compiled with GCC: ") + gcc_MESSAGE + "\" << std::endl;\n"; 
         }
