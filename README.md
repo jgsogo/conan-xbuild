@@ -288,7 +288,81 @@ because our _cross compiling_ works modifying the sources and we need
 to call it explicitly. Actuall cross compiler will populate `CC` and
 `CXX` variables (probably more) and it will work out of the box.
 
+If nothing is said, it will be a _native commpiler_:
+
 ```bash
 $ conan create gcc4gcc/conanfile.py user/testing --profile:host=profiles/profile_host --profile:build=profiles/profile_build --profile:host=profiles/profile_gcc
 ...
+Configuration (profile_host):
+[settings]
+build_type=Release
+[build_requires]
+*: gcc/0.1@user/testing
+
+Configuration (profile_build):
+[settings]
+build_type=Debug
+...
+gcc4gcc/0.1@user/testing: >>>> Running in 'host' context (compiling it)
+gcc4gcc/0.1@user/testing: >>>>  - Assume it will be a native compiler: target='Release'
+...
+# And we are using the `gcc` package (Debug binary) to _cross compile_ to Release
+gcc4gcc/0.1@user/testing: >>>> gcc | gcc_exe
+> gcc_exe
+> gcc_header: Macos|x86_64|apple-clang|Debug --> target=Release
+> gcc: Macos|x86_64|apple-clang|Debug --> target=Release
+	> zlib_header: Macos|x86_64|apple-clang|Debug|shared=True
+	> zlib: Macos|x86_64|apple-clang|Debug|shared=True
+...
+
 ```
+
+Let's run it:
+
+```bash
+$ conan install gcc4gcc/0.1@user/testing -g virtualrunenv -if _install --profile=profiles/profile_host
+> gcc_exe
+> gcc_header: Macos|x86_64|apple-clang|Release --> target=Release
+> -- Compiled with GCC: Macos|x86_64|apple-clang|Debug --> target=Release
+> gcc: Macos|x86_64|apple-clang|Release --> target=Release
+    > zlib_header: Macos|x86_64|apple-clang|Release|shared=True
+    > zlib: Macos|x86_64|apple-clang|Release|shared=True
+You need to provide a project to modify
+```
+
+Now, **let's cross compile a cross compiler** (general scenario):
+
+```bash
+$ conan create gcc4gcc/conanfile.py user/testing --profile:host=profiles/profile_host --profile:build=profiles/profile_build --profile:host=profiles/profile_gcc -o:h gcc4gcc:target=Debug
+...
+gcc4gcc/0.1@user/testing: >>>> Running in 'host' context (compiling it)
+gcc4gcc/0.1@user/testing: >>>>  - It is a generic cross compiler: target='Debug'
+...
+gcc4gcc/0.1@user/testing: >>>> gcc | gcc_exe
+> gcc_exe
+> gcc_header: Macos|x86_64|apple-clang|Debug --> target=Release
+> gcc: Macos|x86_64|apple-clang|Debug --> target=Release
+    > zlib_header: Macos|x86_64|apple-clang|Debug|shared=True
+    > zlib: Macos|x86_64|apple-clang|Debug|shared=True
+...
+gcc4gcc/0.1@user/testing: Package '8f8dc454df92757c35a13ee9b373bb7382b654aa' created
+```
+
+```bash
+$ conan install gcc4gcc/0.1@user/testing -g virtualrunenv -if _install --profile=profiles/profile_host -o:h gcc4gcc:target=Debug
+
+$ source ./_install/activate_run.sh && gcc_exe && source ./_install/deactivate_run.sh
+> gcc_exe
+> gcc_header: Macos|x86_64|apple-clang|Release --> target=Debug
+> -- Compiled with GCC: Macos|x86_64|apple-clang|Debug --> target=Release
+> gcc: Macos|x86_64|apple-clang|Release --> target=Debug
+	> zlib_header: Macos|x86_64|apple-clang|Release|shared=True
+	> zlib: Macos|x86_64|apple-clang|Release|shared=True
+You need to provide a project to modify
+```
+
+Here we are running `gcc_exe` that has been compiled in `Release` and it is
+targetting `Debug` (it is a cross compiler), and it has been _"Compiled with GCC"_ using a `Debug` binary that targets `Reelase` (also a cross compiler).
+
+Piece of cake!
+
