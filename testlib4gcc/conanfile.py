@@ -2,8 +2,8 @@
 import os
 from conans import ConanFile, CMake
 
-class testtool(ConanFile):
-    name = "testtool"
+class testlib(ConanFile):
+    name = "testlib"
     version = "0.1"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
@@ -13,9 +13,13 @@ class testtool(ConanFile):
     generators = "cmake", "cmake_find_package"
     
     def requirements(self):
-        self.requires("testlib/0.1@user/testing")
-
+        self.requires("zlib/0.1@user/testing")
+    
     def build(self):
+        # Check build_requires (build) are available
+        self.output.write(">>>> gcc | gcc_exe")
+        self.run("gcc_exe testlib", run_environment=True)
+
         cmake = CMake(self)
         settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
         options = "|".join(map(str, ["shared={}".format(self.options.shared)]))
@@ -30,9 +34,6 @@ class testtool(ConanFile):
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("testtool_exe.*", src="bin", dst="bin", keep_path=False)
-        self.copy("testtool_exe", src="bin", dst="bin", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["testtool"]
-        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
+        self.cpp_info.libs = ["testlib"]

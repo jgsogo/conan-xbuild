@@ -16,7 +16,7 @@ void actual_work(const std::string& project) {
     {
         output += line + "\n";
         if (line.find("(int tabs) {") != std::string::npos) {
-            output += std::string("    std::cout << \"Compiled with GCC: ") + gcc_MESSAGE + "\" << std::endl;\n"; 
+            output += std::string("    std::cout << std::string(tabs, '\t') << \"> -- Compiled with GCC: ") + gcc_MESSAGE + "\" << std::endl;\n"; 
         }
     }
     ifs.close();
@@ -33,5 +33,10 @@ int main(int argc, char *argv[]) {
     gcc_header(0);
     gcc(0);
 
-    actual_work(argv[1]);
+    if (argc > 1) {
+        actual_work(argv[1]);
+    }
+    else {
+        std::cerr << "You need to provide a project to modify\n";
+    }
 }
