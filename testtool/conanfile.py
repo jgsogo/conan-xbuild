@@ -16,6 +16,14 @@ class testtool(ConanFile):
         self.requires("testlib/0.1@user/testing")
 
     def build(self):
+        try:
+            # Check build_requires (build) are available
+            self.output.write(">>>> gcc | gcc_exe")
+            self.run("gcc_exe testtool", run_environment=True)
+        except Exception:
+            # When we are compiling this recipe, 'gcc' is not ready yet.
+            self.output.write("--- gcc not ready")
+
         cmake = CMake(self)
         settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
         options = "|".join(map(str, ["shared={}".format(self.options.shared)]))

@@ -35,6 +35,14 @@ class gcc(ConanFile):
         self.requires("zlib/0.1@user/testing")
 
     def build(self):
+        try:
+            # Check build_requires (build) are available
+            self.output.write(">>>> gcc | gcc_exe")
+            self.run("gcc_exe gcc", run_environment=True)
+        except Exception:
+            # When we are compiling this recipe, 'gcc' is not ready yet.
+            self.output.write("--- gcc not ready")
+
         # Run actual compilation
         cmake = CMake(self)
         settings = "|".join(map(str, [self.settings.os, self.settings.arch, self.settings.compiler, self.settings.build_type]))
